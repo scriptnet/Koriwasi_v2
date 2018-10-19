@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>Koriwasi</title>
-  <!-- Required Meta Tags Always Come First -->
+    <!-- Required Meta Tags Always Come First -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -42,66 +42,45 @@
        </nav>
      </header>
      <!-- End Navbar -->
+
+
      <div class="container">
        <div class="row no-gutters">
-         <div class="col-md-8 col-lg-7 col-xl-6 offset-md-2 offset-lg-2 offset-xl-3 u-space-3 u-space-0--lg">
-           <!-- Form -->
-           <form class="js-validate mt-5">
-             <!-- Title -->
-             <div class="mb-7">
-               <h2 class="h3 text-primary font-weight-normal mb-0">Bienvenido a <span class="font-weight-bold">Koriwasi</span></h2>
-               <p>Inicia sesión para empezar.</p>
-             </div>
-             <!-- End Title -->
+          <div class="col-md-8 col-lg-7 col-xl-6 offset-md-2 offset-lg-2 offset-xl-3 u-space-3 u-space-0--lg">
+            <!-- Form -->
+            <form class="js-validate mt-5">
+              <!-- Title -->
+              <div class="mb-7">
+                <h1 class="h3 text-primary font-weight-normal mb-0">¿Se te olvidó tu <span class="font-weight-bold">contraseña?</span></h1>
+                <p>Ingrese su dirección de correo electrónico a continuación y lo pondremos en contacto</p>
+              </div>
+              <!-- End Title -->
 
-             <!-- Input -->
-             <div class="js-form-message mb-4">
-               <label class="h6 small d-block text-uppercase">USUARIO</label>
+              <!-- Input -->
+              <div class="js-form-message mb-4">
+                <label class="h6 small d-block text-uppercase">E-mail</label>
 
-               <div class="js-focus-state input-group u-form">
-                 <input type="text" class="form-control u-form__input" name="email" required
-                        placeholder="Usuario"
-                        aria-label="Usuario"
-                        data-msg="ingrese un usuario válido."
-                        data-error-class="u-has-error"
-                        data-success-class="u-has-success">
-               </div>
-             </div>
-             <!-- End Input -->
-             <!-- Input -->
-             <div class="js-form-message mb-4">
-               <div class="d-flex justify-content-between align-items-center">
-                 <label class="h6 small d-block text-uppercase">CONTRASEÑA</label>
+                <div class="js-focus-state input-group u-form">
+                  <input type="email" class="form-control u-form__input" name="email" required="" placeholder="jack@walley.com" aria-label="jack@walley.com" data-msg="Please enter a valid email address." data-error-class="u-has-error" data-success-class="u-has-success">
+                </div>
+              </div>
+              <!-- End Input -->
 
-                 <div class="mb-2">
-                   <a class="small u-link-muted" href="recuva.php">¿Se te olvidó tu contraseña?</a>
-                 </div>
-               </div>
-               <div class="js-focus-state input-group u-form">
-                 <input type="password" class="form-control u-form__input" name="password" required
-                        placeholder="********"
-                        aria-label="********"
-                        data-msg="Your password is invalid. Please try again."
-                        data-error-class="u-has-error"
-                        data-success-class="u-has-success">
-               </div>
-             </div>
-             <!-- End Input -->
-             <!-- Button -->
-             <div class="row align-items-center mb-5">
-               <div class="col-6">
-                 <span class="small text-muted">¿No tienes una cuenta?</span>
-                 <a class="small" href="registro.php">Regístrate</a>
-               </div>
-               <div class="col-6 text-right">
-                 <button type="submit" class="btn btn-primary u-btn-primary transition-3d-hover">Iniciar Sesión</button>
-               </div>
-             </div>
-             <!-- End Button -->
-           </form>
-           <!-- End Form -->
-         </div>
-       </div>
+              <!-- Button -->
+              <div class="row align-items-center mb-5">
+                <div class="col-4 col-sm-6">
+                  <a class="small u-link-muted" href="index.php">Volver a iniciar sesión</a>
+                </div>
+
+                <div class="col-8 col-sm-6 text-right">
+                  <button type="submit" class="btn btn-primary u-btn-primary transition-3d-hover">Enviar</button>
+                </div>
+              </div>
+              <!-- End Button -->
+            </form>
+            <!-- End Form -->
+          </div>
+        </div>
      </div>
 
           <div class="col-lg-5 col-xl-4 d-none d-lg-flex align-items-center u-gradient-half-primary-v1 min-height-100vh--lg px-0">

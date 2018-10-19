@@ -3,9 +3,10 @@
   <head>
     <meta charset="utf-8">
     <title>Koriwasi</title>
-  <!-- Required Meta Tags Always Come First -->
+    <!-- Required Meta Tags Always Come First -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <!-- CSS Implementing Plugins -->
    <link rel="stylesheet" href="css/fontawesome-all.min.css">
@@ -42,66 +43,80 @@
        </nav>
      </header>
      <!-- End Navbar -->
+
+
      <div class="container">
        <div class="row no-gutters">
-         <div class="col-md-8 col-lg-7 col-xl-6 offset-md-2 offset-lg-2 offset-xl-3 u-space-3 u-space-0--lg">
-           <!-- Form -->
-           <form class="js-validate mt-5">
-             <!-- Title -->
-             <div class="mb-7">
-               <h2 class="h3 text-primary font-weight-normal mb-0">Bienvenido a <span class="font-weight-bold">Koriwasi</span></h2>
-               <p>Inicia sesión para empezar.</p>
-             </div>
-             <!-- End Title -->
+          <div class="col-md-8 col-lg-7 col-xl-6 offset-md-2 offset-lg-2 offset-xl-3 u-space-3 u-space-0--lg">
+            <!-- Form -->
+            <form class="js-validate mt-5" novalidate="novalidate">
+              <!-- Title -->
+              <div class="mb-7">
+                <h1 class="h3 text-primary font-weight-normal mb-0">Bienvenido a <span class="font-weight-bold">Koriwasi</span></h1>
+                <p>Rellena el formulario para registrarte.</p>
+              </div>
+              <!-- End Title -->
 
-             <!-- Input -->
-             <div class="js-form-message mb-4">
-               <label class="h6 small d-block text-uppercase">USUARIO</label>
+              <!-- Input -->
+              <div class="js-form-message mb-4">
+                <label class="h6 small d-block text-uppercase">Nombre de usuario</label>
 
-               <div class="js-focus-state input-group u-form">
-                 <input type="text" class="form-control u-form__input" name="email" required
-                        placeholder="Usuario"
-                        aria-label="Usuario"
-                        data-msg="ingrese un usuario válido."
-                        data-error-class="u-has-error"
-                        data-success-class="u-has-success">
-               </div>
-             </div>
-             <!-- End Input -->
-             <!-- Input -->
-             <div class="js-form-message mb-4">
-               <div class="d-flex justify-content-between align-items-center">
-                 <label class="h6 small d-block text-uppercase">CONTRASEÑA</label>
+                <div class="js-focus-state input-group u-form">
+                  <input type="email" class="form-control u-form__input" name="email" required="" placeholder="jack@walley.com" aria-label="jack@walley.com" data-msg="Please enter a valid email address." data-error-class="u-has-error" data-success-class="u-has-success">
+                </div>
+              </div>
+              <!-- End Input -->
 
-                 <div class="mb-2">
-                   <a class="small u-link-muted" href="recuva.php">¿Se te olvidó tu contraseña?</a>
-                 </div>
-               </div>
-               <div class="js-focus-state input-group u-form">
-                 <input type="password" class="form-control u-form__input" name="password" required
-                        placeholder="********"
-                        aria-label="********"
-                        data-msg="Your password is invalid. Please try again."
-                        data-error-class="u-has-error"
-                        data-success-class="u-has-success">
-               </div>
-             </div>
-             <!-- End Input -->
-             <!-- Button -->
-             <div class="row align-items-center mb-5">
-               <div class="col-6">
-                 <span class="small text-muted">¿No tienes una cuenta?</span>
-                 <a class="small" href="registro.php">Regístrate</a>
-               </div>
-               <div class="col-6 text-right">
-                 <button type="submit" class="btn btn-primary u-btn-primary transition-3d-hover">Iniciar Sesión</button>
-               </div>
-             </div>
-             <!-- End Button -->
-           </form>
-           <!-- End Form -->
-         </div>
-       </div>
+              <!-- Input -->
+              <div class="js-form-message mb-4">
+                <label class="h6 small d-block text-uppercase">Contraseña</label>
+
+                <div class="js-focus-state input-group u-form">
+                  <input type="password" class="form-control u-form__input" name="password" required="" placeholder="********" aria-label="********" data-msg="Your password is invalid. Please try again." data-error-class="u-has-error" data-success-class="u-has-success">
+                </div>
+              </div>
+              <!-- End Input -->
+
+              <!-- Input -->
+              <div class="js-form-message mb-3">
+                <label class="h6 small d-block text-uppercase">Confirmar contraseña</label>
+
+                <div class="js-focus-state input-group u-form">
+                  <input type="password" class="form-control u-form__input" name="confirmPassword" required="" placeholder="********" aria-label="********" data-msg="Password does not match the confirm password." data-error-class="u-has-error" data-success-class="u-has-success">
+                </div>
+              </div>
+              <!-- End Input -->
+
+              <!-- Checkbox -->
+              <div class="js-form-message mb-5">
+                <div class="custom-control custom-checkbox d-flex align-items-center text-muted">
+                  <input type="checkbox" class="custom-control-input" id="termsCheckbox" name="termsCheckbox" required="" data-msg="Please accept our Terms and Conditions." data-error-class="u-has-error" data-success-class="u-has-success">
+                  <label class="custom-control-label" for="termsCheckbox">
+                    <small>
+                      Estoy de acuerdo con los
+                      <a class="u-link-muted" href="terminos.php">Terminos y condiciones</a>
+                    </small>
+                  </label>
+                </div>
+              </div>
+              <!-- End Checkbox -->
+
+              <!-- Button -->
+              <div class="row align-items-center mb-5">
+                <div class="col-5 col-sm-6">
+                  <span class="small text-muted">¿Ya tienes una cuenta?</span>
+                  <a class="small" href="index.php">Inicia sesión</a>
+                </div>
+
+                <div class="col-7 col-sm-6 text-right">
+                  <button type="submit" class="btn btn-primary u-btn-primary transition-3d-hover">Registrarme</button>
+                </div>
+              </div>
+              <!-- End Button -->
+            </form>
+            <!-- End Form -->
+          </div>
+        </div>
      </div>
 
           <div class="col-lg-5 col-xl-4 d-none d-lg-flex align-items-center u-gradient-half-primary-v1 min-height-100vh--lg px-0">
