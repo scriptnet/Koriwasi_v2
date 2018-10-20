@@ -1,3 +1,48 @@
+<?php
+      require_once 'config/conexion.php';
+      $username = $password = "";
+      $username_err = $password_err = "";
+      if($_SERVER["REQUEST_METHOD"] == "POST"){
+        if(empty(trim($_POST["username"]))){
+        $username_err = 'Por favor, intruduzca su usuario.';
+        } else{
+        $username = trim($_POST["username"]);
+        }
+      if(empty(trim($_POST['password']))){
+        $password_err = 'Por favor, introduzca su contraseña.';
+      } else{
+        $password = trim($_POST['password']);
+      }
+      if(empty($username_err) && empty($password_err)){
+        $sql = "SELECT nom_user, password FROM usuario WHERE nom_user = ?";
+        if($stmt = mysqli_prepare($bd, $sql)){
+            mysqli_stmt_bind_param($stmt, "s", $param_username);
+            $param_username = $username;
+            if(mysqli_stmt_execute($stmt)){
+                mysqli_stmt_store_result($stmt);
+                if(mysqli_stmt_num_rows($stmt) == 1){
+                    mysqli_stmt_bind_result($stmt, $username, $hashed_password);
+                    if(mysqli_stmt_fetch($stmt)){
+                        if(password_verify($password, $hashed_password)){
+                            session_start();
+                            $_SESSION['username'] = $username;
+                            header("location: koriwasi.php");
+                        } else{
+                            $password_err = 'La contraseña que has introducido no es válida.';
+                        }
+                    }
+                } else{
+                    $username_err = 'No se encontró la cuenta.';
+                }
+            } else{
+                echo "Oops! Algo salió mal. Por favor, inténtelo de nuevo más tarde.";
+            }
+        }
+        mysqli_stmt_close($stmt);
+    }
+    mysqli_close($bd);
+}
+   ?>
 <!DOCTYPE html>
 <html lang="" dir="ltr">
   <head>
@@ -46,7 +91,7 @@
        <div class="row no-gutters">
          <div class="col-md-8 col-lg-7 col-xl-6 offset-md-2 offset-lg-2 offset-xl-3 u-space-3 u-space-0--lg">
            <!-- Form -->
-           <form class="js-validate mt-5">
+           <form class="js-validate mt-5" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
              <!-- Title -->
              <div class="mb-7">
                <h2 class="h3 text-primary font-weight-normal mb-0">Bienvenido a <span class="font-weight-bold">Koriwasi</span></h2>
@@ -59,13 +104,14 @@
                <label class="h6 small d-block text-uppercase">USUARIO</label>
 
                <div class="js-focus-state input-group u-form">
-                 <input type="text" class="form-control u-form__input" name="email" required
+                 <input type="text" class="form-control u-form__input" name="username" required="required"
                         placeholder="Usuario"
                         aria-label="Usuario"
                         data-msg="ingrese un usuario válido."
                         data-error-class="u-has-error"
                         data-success-class="u-has-success">
                </div>
+               <span class="log_error" style="color: red;"><?php echo $username_err; ?></span>
              </div>
              <!-- End Input -->
              <!-- Input -->
@@ -78,13 +124,14 @@
                  </div>
                </div>
                <div class="js-focus-state input-group u-form">
-                 <input type="password" class="form-control u-form__input" name="password" required
+                 <input type="password" class="form-control u-form__input" name="password" required=required
                         placeholder="********"
                         aria-label="********"
                         data-msg="Your password is invalid. Please try again."
                         data-error-class="u-has-error"
                         data-success-class="u-has-success">
                </div>
+               <span class="log_error" style="color: red;"><?php echo $password_err; ?></span>
              </div>
              <!-- End Input -->
              <!-- Button -->

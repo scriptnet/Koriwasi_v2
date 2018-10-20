@@ -52,16 +52,16 @@
               <!-- Title -->
               <div class="mb-7">
                 <h1 class="h3 text-primary font-weight-normal mb-0">¿Se te olvidó tu <span class="font-weight-bold">contraseña?</span></h1>
-                <p>Ingrese su dirección de correo electrónico a continuación y lo pondremos en contacto</p>
+                <p>Ingrese su nombre de usuario</p>
               </div>
               <!-- End Title -->
 
               <!-- Input -->
               <div class="js-form-message mb-4">
-                <label class="h6 small d-block text-uppercase">E-mail</label>
+                <label class="h6 small d-block text-uppercase">usuario</label>
 
                 <div class="js-focus-state input-group u-form">
-                  <input type="email" class="form-control u-form__input" name="email" required="" placeholder="jack@walley.com" aria-label="jack@walley.com" data-msg="Please enter a valid email address." data-error-class="u-has-error" data-success-class="u-has-success">
+                  <input type="email" class="form-control u-form__input" name="email" required="" placeholder="user1" aria-label="jack@walley.com" data-msg="Please enter a valid email address." data-error-class="u-has-error" data-success-class="u-has-success">
                 </div>
               </div>
               <!-- End Input -->
