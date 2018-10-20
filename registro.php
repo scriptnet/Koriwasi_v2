@@ -1,3 +1,101 @@
+<?php
+// Include la configuración a la base de datos
+require_once 'config/conexion.php';
+// Define variables e inicializar con valores vacíos
+$status = "";
+$username = $password =  $area = "";
+$username_err  = $password_err = $confirm_password_err = $area_err = "";
+// Procesamiento de datos de formulario cuando se envía el formulario
+if($_SERVER["REQUEST_METHOD"] == "POST"){
+// Validar nombre de usuario
+    if(empty(trim($_POST["username"]))){
+        $username_err = "Por favor, ingrese un nombre de usuario.";
+    } else{
+//Prepare una declaración selecta
+        $sql = "SELECT id_user FROM usuario WHERE nom_user = ?";
+
+        if($stmt = mysqli_prepare($bd, $sql)){
+            // Vincular variables a la instrucción preparada como parámetros
+            mysqli_stmt_bind_param($stmt, "s", $param_username);
+
+            // Establecer parámetros
+            $param_username = trim($_POST["username"]);
+
+            // Intentar ejecutar la declaración preparada
+            if(mysqli_stmt_execute($stmt)){
+                /* resultado de la tienda */
+                mysqli_stmt_store_result($stmt);
+
+                if(mysqli_stmt_num_rows($stmt) == 1){
+                    $username_err = "Este nombre de usuario ya está en uso.";
+                } else{
+                    $username = trim($_POST["username"]);
+                }
+            } else{
+                echo "Oops! Algo salió mal. Por favor, inténtelo de nuevo más tarde.";
+            }
+        }
+
+        // Declaración cerrada
+        mysqli_stmt_close($stmt);
+}
+
+// Validar area
+    if(empty(trim($_POST['area']))){
+        $area_err = "error en area.";
+    } else{
+        $area = trim($_POST['area']);
+    }
+// Validar contraseña
+    if(empty(trim($_POST['password']))){
+        $password_err = "Porfavor ingrese una contraseña.";
+    } elseif(strlen(trim($_POST['password'])) < 6){
+        $password_err = "La contraseña debe tener al menos 6 caracteres.";
+    } else{
+        $password = trim($_POST['password']);
+    }
+// Validar confirmar contraseña
+    if(empty(trim($_POST["confirm_password"]))){
+        $confirm_password_err = 'Por favor confirma la contraseña.';
+    } else{
+        $confirm_password = trim($_POST['confirm_password']);
+        if($password != $confirm_password){
+            $confirm_password_err = 'La contraseña no coincidió.';
+        }
+    }
+// Verifique los errores de entrada antes de insertarlos en la base de datos
+    if(empty($username_err) && empty($password_err) && empty($confirm_password_err) && empty($area_err)){
+// Prepare una declaración de inserción
+        $sql = "INSERT INTO usuario (nom_user, password, id_area) VALUES (?, ?, ?)";
+
+if($stmt = mysqli_prepare($bd, $sql)){
+            // Vincular variables a la instrucción preparada como parámetros
+            mysqli_stmt_bind_param($stmt, "sss", $param_username, $param_password, $area);
+
+            // Establecer parámetros
+            $param_username = $username;
+            $param_password = password_hash($password, PASSWORD_DEFAULT); // Crea un hash de contraseña
+            $param_area = $area;
+
+
+            // Intentar ejecutar la declaración preparada
+            if(mysqli_stmt_execute($stmt)){
+                // Redirigir a la página de inicio de sesión
+                //header("location: index.php");
+                $status = "Resgistro guardado, inicia sesión.";
+            } else{
+
+                $status  = "Algo salió mal. Por favor, inténtelo de nuevo más tarde.";
+            }
+        }
+   mysqli_stmt_close($stmt);
+    }
+
+    // Conexión cerrada
+    mysqli_close($bd);
+}
+?>
+
 <!DOCTYPE html>
 <html lang="" dir="ltr">
   <head>
@@ -49,41 +147,58 @@
        <div class="row no-gutters">
           <div class="col-md-8 col-lg-7 col-xl-6 offset-md-2 offset-lg-2 offset-xl-3 u-space-3 u-space-0--lg">
             <!-- Form -->
-            <form class="js-validate mt-5" novalidate="novalidate">
+            <form class="js-validate mt-5"  action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
               <!-- Title -->
               <div class="mb-7">
                 <h1 class="h3 text-primary font-weight-normal mb-0">Bienvenido a <span class="font-weight-bold">Koriwasi</span></h1>
-                <p>Rellena el formulario para registrarte.</p>
+                <p>Rellena el formulario para registrarte.</p><br>
+                <span class="log_error" style="color: green;"><?php echo $status; ?></span>
               </div>
               <!-- End Title -->
 
               <!-- Input -->
               <div class="js-form-message mb-4">
-                <label class="h6 small d-block text-uppercase">Nombre de usuario</label>
+                <label class="h6 small d-block text-uppercase">Nombre de usuario (max 10)</label>
 
                 <div class="js-focus-state input-group u-form">
-                  <input type="email" class="form-control u-form__input" name="email" required="" placeholder="jack@walley.com" aria-label="jack@walley.com" data-msg="Please enter a valid email address." data-error-class="u-has-error" data-success-class="u-has-success">
+                  <input type="text" name="username" value="<?php echo $username; ?>" class="form-control u-form__input" required="required" placeholder="User1" aria-label="user1" data-msg="error" data-error-class="u-has-error" data-success-class="u-has-success">
                 </div>
+                <span class="log_error" style="color: red;"><?php echo $username_err; ?></span>
               </div>
               <!-- End Input -->
 
               <!-- Input -->
               <div class="js-form-message mb-4">
                 <label class="h6 small d-block text-uppercase">Contraseña</label>
-
                 <div class="js-focus-state input-group u-form">
-                  <input type="password" class="form-control u-form__input" name="password" required="" placeholder="********" aria-label="********" data-msg="Your password is invalid. Please try again." data-error-class="u-has-error" data-success-class="u-has-success">
+                  <input type="password" name="password" class="form-control u-form__input"  required="required" placeholder="********" aria-label="********" data-msg="Your password is invalid. Please try again." data-error-class="u-has-error" data-success-class="u-has-success">
                 </div>
+                <span class="log_error" style="color: red;"><?php echo $password_err; ?></span>
               </div>
               <!-- End Input -->
 
               <!-- Input -->
               <div class="js-form-message mb-3">
                 <label class="h6 small d-block text-uppercase">Confirmar contraseña</label>
-
                 <div class="js-focus-state input-group u-form">
-                  <input type="password" class="form-control u-form__input" name="confirmPassword" required="" placeholder="********" aria-label="********" data-msg="Password does not match the confirm password." data-error-class="u-has-error" data-success-class="u-has-success">
+                  <input type="password" name="confirm_password" class="form-control u-form__input" required="required" placeholder="********" aria-label="********" data-msg="Password does not match the confirm password." data-error-class="u-has-error" data-success-class="u-has-success">
                 </div>
+                 <span class="log_error" style="color: red;"><?php echo $confirm_password_err; ?></span>
+              </div>
+              <!-- End Input -->
+              <!-- Input -->
+              <div class="js-form-message mb-3">
+                <label class="h6 small d-block text-uppercase">Área</label>
+                <div class="js-focus-state input-group u-form">
+                  <select class="form-control u-form__input" name="area">
+                    <option value="1">Administración</option>
+                    <option value="2">Diseño</option>
+                    <option value="3">Casting</option>
+                    <option value="4">Mesa</option>
+                  </select>
+                  <!-- <input type="password" name="confirm_password" class="form-control u-form__input" name="confirmPassword" required="required" placeholder="********" aria-label="********" data-msg="Password does not match the confirm password." data-error-class="u-has-error" data-success-class="u-has-success"> -->
+                </div>
+
               </div>
               <!-- End Input -->
 
