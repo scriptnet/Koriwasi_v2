@@ -1,0 +1,20 @@
+{
+  "bdio": [
+      {
+        "id": 0,
+        "logo": "img/BD-IO.png",
+        "nombre": "BDIO",
+        "link": "https://www.bd-io.com"
+      }
+    ],
+    "bdio2": [
+        {
+          "id": 0,
+          "sexo": "hombre2",
+          "nombre": "Kari",
+          "snombre": "Carr",
+          "telefono": "(826) 453-3497",
+          "celular": "(801) 9175-8136"
+        }
+      ]
+  }

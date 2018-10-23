@@ -1,0 +1,166 @@
+<div class="container u-space-1-bottom u-space-bottom-0--lg">
+  <div class="d-lg-flex justify-content-lg-between align-items-lg-center">
+    <!-- Navbar -->
+    <div class="u-header u-header--bg-transparent-lg z-index-4">
+      <div class="u-header__section bg-transparent u-header--white-nav-links">
+        <nav class="js-breadcrumb-menu navbar navbar-expand-lg u-header__navbar">
+          <div id="breadcrumbNavBar" class="collapse navbar-collapse py-0">
+            <ul class="navbar-nav w-100 u-header__navbar-nav">
+              <!-- General -->
+              <li class="nav-item hs-has-sub-menu u-header__nav-item"
+                  data-event="hover"
+                  data-animation-in="slideInUp"
+                  data-animation-out="fadeOut"
+                  >
+                <a id="generalDropdown" class="nav-link u-header__nav-link pl-0" href="javascript:;"
+                   aria-haspopup="true"
+                   aria-expanded="false"
+                   aria-labelledby="generalDropdown">
+                  General
+                  <span class="fa fa-angle-down u-header__nav-link-icon"></span>
+                </a>
+
+                <!-- Submenu -->
+                <ul id="generalDropdown"
+                class="list-inline hs-sub-menu u-header__sub-menu py-lg-3 mb-0"
+                style="min-width: 220px; "
+                aria-labelledby="generalDropdown">
+                  <li class="dropdown-item px-0" ng-repeat="general in general">
+                    <a class="nav-link u-header__sub-menu-nav-link u-list__link px-4" href="{{ general.href }}">{{ general.nombre }} </a>
+                  </li>
+                </ul>
+                <!-- End Submenu -->
+              </li>
+              <!-- General -->
+
+              <!-- Account Settings -->
+              <li class="nav-item hs-has-sub-menu u-header__nav-item"
+                  data-event="hover"
+                  data-animation-in="slideInUp"
+                  data-animation-out="fadeOut">
+                <a id="accountSettingsDropdown" class="nav-link u-header__nav-link" href="javascript:;"
+                   aria-haspopup="true"
+                   aria-expanded="false"
+                   aria-labelledby="accountSettingsDropdown">
+                  Ordenes de trabajo
+                  <span class="fa fa-angle-down u-header__nav-link-icon"></span>
+                </a>
+
+                <!-- Submenu -->
+                <ul id="accountSettingsDropdown" class="list-inline hs-sub-menu u-header__sub-menu py-lg-3 mb-0" style="min-width: 220px;"
+                    aria-labelledby="accountSettingsDropdown">
+                  <li class="dropdown-item px-0" ng-repeat="odt in odt">
+                    <a class="nav-link u-header__sub-menu-nav-link u-list__link px-4" href="{{ odt.href}}">{{ odt.nombre}}</a>
+                  </li>
+                </ul>
+                <!-- End Submenu -->
+              </li>
+              <!-- Account Settings -->
+
+              <!-- Billing -->
+              <li class="nav-item hs-has-sub-menu u-header__nav-item"
+                  data-event="hover"
+                  data-animation-in="slideInUp"
+                  data-animation-out="fadeOut">
+                <a id="billingDropdown" class="nav-link u-header__nav-link" href="javascript:;"
+                   aria-haspopup="true"
+                   aria-expanded="false"
+                   aria-labelledby="billingDropdown">
+                  Ingresos
+                  <span class="fa fa-angle-down u-header__nav-link-icon"></span>
+                </a>
+
+                <!-- Submenu -->
+                <ul id="billingDropdown" class="list-inline hs-sub-menu u-header__sub-menu py-lg-3 mb-0" style="min-width: 220px;"
+                    aria-labelledby="billingDropdown">
+                  <li class="dropdown-item px-0" ng-repeat="ingr in ingr">
+                    <a class="nav-link u-header__sub-menu-nav-link u-list__link px-4" href="{{ ingr.href}}">{{ ingr.nombre}}</a>
+                  </li>
+                </ul>
+                <!-- End Submenu -->
+              </li>
+              <!-- Billing -->
+
+              <!-- Accessibility -->
+              <li class="nav-item hs-has-sub-menu u-header__nav-item"
+                  data-event="hover"
+                  data-animation-in="slideInUp"
+                  data-animation-out="fadeOut">
+                <a id="accessibilityDropdown" class="nav-link u-header__nav-link" href="javascript:;"
+                   aria-haspopup="true"
+                   aria-expanded="false"
+                   aria-labelledby="accessibilityDropdown">
+                  Contactos
+                  <span class="fa fa-angle-down u-header__nav-link-icon"></span>
+                </a>
+
+                <!-- Submenu -->
+                <ul id="accessibilityDropdown" class="list-inline hs-sub-menu u-header__sub-menu py-lg-3 mb-0" style="min-width: 220px;"
+                    aria-labelledby="accessibilityDropdown">
+                  <li class="dropdown-item px-0" ng-repeat="contac in contac">
+                    <a class="nav-link u-header__sub-menu-nav-link u-list__link px-4" href="{{contac.href}}">{{contac.nombre}}</a>
+                  </li>
+                </ul>
+                <!-- End Submenu -->
+              </li>
+              <!-- Accessibility -->
+              <!-- inventario -->
+              <li class="nav-item hs-has-sub-menu u-header__nav-item"
+                  data-event="hover"
+                  data-animation-in="slideInUp"
+                  data-animation-out="fadeOut">
+                <a id="accessibilityDropdown" class="nav-link u-header__nav-link" href="javascript:;"
+                   aria-haspopup="true"
+                   aria-expanded="false"
+                   aria-labelledby="accessibilityDropdown">
+                  Inventario
+                  <span class="fa fa-angle-down u-header__nav-link-icon"></span>
+                </a>
+
+                <!-- Submenu -->
+                <ul id="accessibilityDropdown" class="list-inline hs-sub-menu u-header__sub-menu py-lg-3 mb-0" style="min-width: 220px;"
+                    aria-labelledby="accessibilityDropdown">
+                  <li class="dropdown-item px-0" ng-repeat="invent in invent">
+                    <a class="nav-link u-header__sub-menu-nav-link u-list__link px-4" href="{{ invent.href }}">{{ invent.nombre}}</a>
+                  </li>
+                </ul>
+                <!-- End Submenu -->
+              </li>
+              <!-- end inventario -->
+
+              <!-- Others -->
+              <li class="nav-item u-header__nav-item">
+                <a class="nav-link u-header__nav-link" href="salir.php">Salir</a>
+              </li>
+              <!-- Others -->
+            </ul>
+          </div>
+        </nav>
+      </div>
+    </div>
+    <!-- End Navbar -->
+
+    <div class="ml-lg-auto">
+      <!-- Button -->
+      <a class="btn btn-sm u-btn-white--air transition-3d-hover" href="#requestPaymentModal"
+         data-modal-target="#requestPaymentModal"
+         data-overlay-color="#111722">
+        <span class="fa fa-plus font-size-13 mr-2"></span>
+        Nueva Cotización
+      </a>
+      <!-- End Button -->
+    </div>
+    <div class="ml-lg-auto">
+      <!-- Button -->
+      <a class="btn btn-sm u-btn-white--air transition-3d-hover" href="#requestPaymentModal"
+         data-modal-target="#requestPaymentModal"
+         data-overlay-color="#111722">
+        <span class="fa fa-plus font-size-13 mr-2"></span>
+         Nuevo cliente
+         
+      </a>
+      <!-- End Button -->
+    </div>
+  </div>
+
+</div>

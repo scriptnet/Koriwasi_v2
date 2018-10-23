@@ -1,0 +1,77 @@
+{
+  "general":
+  [
+      {
+        "id": 0,
+        "nombre": "inicio",
+        "href": "#/"
+      },
+      {
+        "id": 1,
+        "nombre": "perfil",
+        "href": "#/perfil"
+      }
+  ],
+  "m_ordenesdetrabajo":
+  [
+      {
+        "id": 0,
+        "nombre": "diseño",
+        "href": "#/diseño"
+      },
+      {
+        "id": 1,
+        "nombre": "casting",
+        "href": "#/casting"
+      },
+      {
+        "id": 2,
+        "nombre": "mesa",
+        "href": "#/mesa"
+      }
+  ],
+  "m_ingresos":
+  [
+      {
+        "id": 0,
+        "nombre": "ventas",
+        "href": "#/ventas"
+      },
+      {
+        "id": 1,
+        "nombre": "cotizaciones",
+        "href": "#/cotizaciones"
+      }
+  ],
+  "m_contactos":
+  [
+      {
+        "id": 0,
+        "nombre": "Clientes",
+        "href": "#/clientes/1"
+      },
+      {
+        "id": 1,
+        "nombre": "Proveedores",
+        "href": "#/proveedores"
+      },
+      {
+        "id": 2,
+        "nombre": "Usuarios",
+        "href": "#/usuarios"
+      }
+  ],
+  "m_inventario":
+  [
+      {
+        "id": 0,
+        "nombre": "Almacén",
+        "href": "#/almacen"
+      },
+      {
+        "id": 1,
+        "nombre": "Productos",
+        "href": "#/productos/1"
+      }
+  ]
+}

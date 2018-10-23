@@ -1,5 +1,5 @@
 <?php
-// Initialize the session
+// Inicializar la sesión
 session_start();
 // mostrar datos
 require_once 'config/conexion.php';
@@ -27,7 +27,7 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
 }
 ?>
 <!DOCTYPE html>
-<html lang="" dir="ltr">
+<html lang="" dir="ltr" ng-app="koriwasiApp" ng-controller="mainCtrl" >
   <head>
     <meta charset="utf-8">
 
@@ -49,6 +49,18 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
 
    <!-- CSS Front Template -->
    <link rel="stylesheet" href="css/front.css">
+
+	 <!--  angualrjs-->
+	 <script src="angular/lib/angular.min.js"></script>
+	 <script src="angular/lib/angular-route.min.js"></script>
+	 <!--  controladores-->
+	  <script src="angular/app.js"></script>
+		<script src="angular/controladores/clientesCtrl.js"></script>
+		<script src="angular/controladores/productosCtrl.js"></script>
+		<!--  Servicios-->
+		<script src="angular/servicios/clientes_servicio.js"></script>
+		<script src="angular/servicios/productos_servicio.js"></script>
+
   </head>
   <body>
 
@@ -63,7 +75,7 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
              <!-- Breadcrumb -->
              <ol class="breadcrumb breadcrumb-white breadcrumb-no-gutter mb-0">
 
-               <li class="breadcrumb-item"><a class="breadcrumb-link" href="dashboard.html">Login</a></li>
+               <li class="breadcrumb-item"><a class="breadcrumb-link" href="index.php">Login</a></li>
                <li class="breadcrumb-item active" aria-current="page">Panel</li>
              </ol>
              <!-- End Breadcrumb -->
@@ -104,380 +116,16 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
        </div>
      </div>
 
-     <div class="container u-space-1-bottom u-space-bottom-0--lg">
-       <div class="d-lg-flex justify-content-lg-between align-items-lg-center">
-         <!-- Navbar -->
-         <div class="u-header u-header--bg-transparent-lg z-index-4">
-           <div class="u-header__section bg-transparent u-header--white-nav-links">
-             <nav class="js-breadcrumb-menu navbar navbar-expand-lg u-header__navbar">
-               <div id="breadcrumbNavBar" class="collapse navbar-collapse py-0">
-                 <ul class="navbar-nav w-100 u-header__navbar-nav">
-                   <!-- General -->
-                   <li class="nav-item hs-has-sub-menu u-header__nav-item"
-                       data-event="hover"
-                       data-animation-in="slideInUp"
-                       data-animation-out="fadeOut">
-                     <a id="generalDropdown" class="nav-link u-header__nav-link pl-0" href="javascript:;"
-                        aria-haspopup="true"
-                        aria-expanded="false"
-                        aria-labelledby="generalDropdown">
-                       General
-                       <span class="fa fa-angle-down u-header__nav-link-icon"></span>
-                     </a>
+     <div ng-include="'includes/menu.html'">
 
-                     <!-- Submenu -->
-                     <ul id="generalDropdown" class="list-inline hs-sub-menu u-header__sub-menu py-lg-3 mb-0" style="min-width: 220px;"
-                         aria-labelledby="generalDropdown">
-                       <li class="dropdown-item px-0">
-                         <a class="nav-link u-header__sub-menu-nav-link u-list__link px-4" href="koriwasi.php">Inicio</a>
-                       </li>
-                       <li class="dropdown-item px-0">
-                         <a class="nav-link u-header__sub-menu-nav-link u-list__link px-4" href="profile.html">Mi perfil</a>
-                       </li>
-                     </ul>
-                     <!-- End Submenu -->
-                   </li>
-                   <!-- General -->
-
-                   <!-- Account Settings -->
-                   <li class="nav-item hs-has-sub-menu u-header__nav-item"
-                       data-event="hover"
-                       data-animation-in="slideInUp"
-                       data-animation-out="fadeOut">
-                     <a id="accountSettingsDropdown" class="nav-link u-header__nav-link" href="javascript:;"
-                        aria-haspopup="true"
-                        aria-expanded="false"
-                        aria-labelledby="accountSettingsDropdown">
-                       Ordenes de trabajo
-                       <span class="fa fa-angle-down u-header__nav-link-icon"></span>
-                     </a>
-
-                     <!-- Submenu -->
-                     <ul id="accountSettingsDropdown" class="list-inline hs-sub-menu u-header__sub-menu py-lg-3 mb-0" style="min-width: 220px;"
-                         aria-labelledby="accountSettingsDropdown">
-                       <li class="dropdown-item px-0">
-                         <a class="nav-link u-header__sub-menu-nav-link u-list__link px-4" href="edit-profile.html">Diseño</a>
-                       </li>
-                       <li class="dropdown-item px-0">
-                         <a class="nav-link u-header__sub-menu-nav-link u-list__link px-4" href="change-password.html">Casting</a>
-                       </li>
-                       <li class="dropdown-item px-0">
-                         <a class="nav-link u-header__sub-menu-nav-link u-list__link px-4" href="notifications.html">Mesa</a>
-                       </li>
-                     </ul>
-                     <!-- End Submenu -->
-                   </li>
-                   <!-- Account Settings -->
-
-                   <!-- Billing -->
-                   <li class="nav-item hs-has-sub-menu u-header__nav-item"
-                       data-event="hover"
-                       data-animation-in="slideInUp"
-                       data-animation-out="fadeOut">
-                     <a id="billingDropdown" class="nav-link u-header__nav-link" href="javascript:;"
-                        aria-haspopup="true"
-                        aria-expanded="false"
-                        aria-labelledby="billingDropdown">
-                       Ingresos
-                       <span class="fa fa-angle-down u-header__nav-link-icon"></span>
-                     </a>
-
-                     <!-- Submenu -->
-                     <ul id="billingDropdown" class="list-inline hs-sub-menu u-header__sub-menu py-lg-3 mb-0" style="min-width: 220px;"
-                         aria-labelledby="billingDropdown">
-                       <li class="dropdown-item px-0">
-                         <a class="nav-link u-header__sub-menu-nav-link u-list__link px-4" href="activity.html">Ventas</a>
-                       </li>
-                       <li class="dropdown-item px-0">
-                         <a class="nav-link u-header__sub-menu-nav-link u-list__link px-4" href="payment-methods.html">Cotizaciones</a>
-                       </li>
-
-                     </ul>
-                     <!-- End Submenu -->
-                   </li>
-                   <!-- Billing -->
-
-                   <!-- Accessibility -->
-                   <li class="nav-item hs-has-sub-menu u-header__nav-item"
-                       data-event="hover"
-                       data-animation-in="slideInUp"
-                       data-animation-out="fadeOut">
-                     <a id="accessibilityDropdown" class="nav-link u-header__nav-link" href="javascript:;"
-                        aria-haspopup="true"
-                        aria-expanded="false"
-                        aria-labelledby="accessibilityDropdown">
-                       Contactos
-                       <span class="fa fa-angle-down u-header__nav-link-icon"></span>
-                     </a>
-
-                     <!-- Submenu -->
-                     <ul id="accessibilityDropdown" class="list-inline hs-sub-menu u-header__sub-menu py-lg-3 mb-0" style="min-width: 220px;"
-                         aria-labelledby="accessibilityDropdown">
-                       <li class="dropdown-item px-0">
-                         <a class="nav-link u-header__sub-menu-nav-link u-list__link px-4" href="invite-friends.html">Clientes</a>
-                       </li>
-                       <li class="dropdown-item px-0">
-                         <a class="nav-link u-header__sub-menu-nav-link u-list__link px-4" href="api-token.html">Proveedores</a>
-                       </li>
-                       <li class="dropdown-item px-0">
-                         <a class="nav-link u-header__sub-menu-nav-link u-list__link px-4" href="api-token.html">Usuarios</a>
-                       </li>
-                     </ul>
-                     <!-- End Submenu -->
-                   </li>
-                   <!-- Accessibility -->
-                   <!-- inventario -->
-                   <li class="nav-item hs-has-sub-menu u-header__nav-item"
-                       data-event="hover"
-                       data-animation-in="slideInUp"
-                       data-animation-out="fadeOut">
-                     <a id="accessibilityDropdown" class="nav-link u-header__nav-link" href="javascript:;"
-                        aria-haspopup="true"
-                        aria-expanded="false"
-                        aria-labelledby="accessibilityDropdown">
-                       Inventario
-                       <span class="fa fa-angle-down u-header__nav-link-icon"></span>
-                     </a>
-
-                     <!-- Submenu -->
-                     <ul id="accessibilityDropdown" class="list-inline hs-sub-menu u-header__sub-menu py-lg-3 mb-0" style="min-width: 220px;"
-                         aria-labelledby="accessibilityDropdown">
-                       <li class="dropdown-item px-0">
-                         <a class="nav-link u-header__sub-menu-nav-link u-list__link px-4" href="invite-friends.html">Almcén</a>
-                       </li>
-                       <li class="dropdown-item px-0">
-                         <a class="nav-link u-header__sub-menu-nav-link u-list__link px-4" href="api-token.html">Productos</a>
-                       </li>
-                     </ul>
-                     <!-- End Submenu -->
-                   </li>
-                   <!-- end inventario -->
-
-                   <!-- Others -->
-                   <li class="nav-item u-header__nav-item">
-                     <a class="nav-link u-header__nav-link" href="salir.php">Salir</a>
-                   </li>
-                   <!-- Others -->
-                 </ul>
-               </div>
-             </nav>
-           </div>
-         </div>
-         <!-- End Navbar -->
-
-         <div class="ml-lg-auto">
-           <!-- Button -->
-           <a class="btn btn-sm u-btn-white--air transition-3d-hover" href="#requestPaymentModal"
-              data-modal-target="#requestPaymentModal"
-              data-overlay-color="#111722">
-             <span class="fa fa-plus font-size-13 mr-2"></span>
-             Nueva Cotización
-           </a>
-           <!-- End Button -->
-         </div>
-       </div>
      </div>
    </div>
    <!-- End Breadcrumb Section -->
 
    <!-- Content Section -->
    <div class="u-bg-light-blue-50">
-     <div class="container u-space-2">
-       <!-- Balances -->
-       <div class="card-deck d-block d-lg-flex mb-6">
-         <!-- Card -->
-         <div class="card mb-3 mb-lg-0">
-           <div class="card-body p-5">
-             <div class="media">
-               <span class="u-icon u-icon-primary--air u-icon--xl rounded-circle mr-4">
-                 <span class="fas fa-broom font-size-26 u-icon__inner"></span>
-               </span>
-               <div class="media-body">
-                 <span class="d-block font-size-32">50</span>
-                 <h2 class="h6 text-secondary font-weight-normal mb-0">DISEÑO</h2>
-               </div>
-             </div>
-           </div>
-         </div>
-         <!-- End Card -->
+     <div class="container u-space-2" ng-view>
 
-         <!-- Card -->
-         <div class="card mb-3 mb-lg-0">
-           <div class="card-body p-5">
-             <div class="media">
-               <span class="u-icon u-icon-success--air u-icon--xl rounded-circle mr-4">
-                 <span class="fas fa-bong font-size-26 u-icon__inner"></span>
-               </span>
-               <div class="media-body">
-                 <span class="d-block font-size-32">10</span>
-                 <h3 class="h6 text-secondary font-weight-normal mb-0">CASTING</h3>
-               </div>
-             </div>
-           </div>
-         </div>
-         <!-- End Card -->
-
-         <!-- Card -->
-         <div class="card">
-           <div class="card-body p-5">
-             <div class="media">
-               <span class="u-icon u-icon-warning--air u-icon--xl rounded-circle mr-4">
-                 <span class="fas fa-cogs font-size-26 u-icon__inner"></span>
-               </span>
-               <div class="media-body">
-                 <span class="d-block font-size-32">10</span>
-                 <h3 class="h6 text-secondary font-weight-normal mb-0">MESA</h3>
-               </div>
-             </div>
-           </div>
-         </div>
-         <!-- End Card -->
-       </div>
-       <!-- End Balances -->
-
-       <!-- Title -->
-       <div class="d-flex justify-content-between align-items-center mb-3" style="padding-top: 10px;">
-         <h3 class="h6 mb-0">Estado de pedidos</h3>
-         <a class="u-link-muted" href="#">Ver todos</a>
-       </div>
-       <!-- End Title -->
-
-       <!-- Earning Sources -->
-       <div class="mb-7">
-         <div class="card-deck d-block d-lg-flex">
-           <!-- Card -->
-           <div class="card u-info-v2 mb-3">
-             <a class="card-body p-4" href="#" style="text-decoration: none;">
-               <div class="media align-items-center">
-                 <span class="u-icon u-icon-success--air u-icon--lg rounded-circle mr-3">
-                          <span class="u-icon__inner font-size-26">S</span>
-                  </span>
-                 <div class="media-body">
-                   <span class="text-dark">Anillo</span>
-                   <small class="d-block text-secondary">Alex Darlin Ocas Yzquierdo</small>
-                 </div>
-                 <div class="media-body text-right">
-                   <span class="text-primary ml-3">
-                    Diseño
-                   </span>
-                 </div>
-               </div>
-             </a>
-           </div>
-           <!-- End Card -->
-
-           <!-- Card -->
-           <div class="card u-info-v2 mb-3">
-             <a class="card-body p-4" href="#" style="text-decoration: none;">
-               <div class="media align-items-center">
-                 <span class="u-icon u-icon-danger--air u-icon--lg rounded-circle mr-3">
-                          <span class="u-icon__inner font-size-26">S</span>
-                  </span>
-                 <div class="media-body">
-                   <span class="text-dark">Anillo 2</span>
-                   <small class="d-block text-secondary">Alex Darlin Ocas Yzquierdo</small>
-                 </div>
-                 <div class="media-body text-right">
-                   <span class="text-primary ml-3">
-                    Diseño
-                   </span>
-                 </div>
-               </div>
-             </a>
-           </div>
-           <!-- End Card -->
-
-           <!-- Card -->
-           <div class="card u-info-v2 mb-3">
-             <a class="card-body p-4" href="#" style="text-decoration: none;">
-               <div class="media align-items-center">
-                 <span class="u-icon u-icon-success--air u-icon--lg rounded-circle mr-3">
-                          <span class="u-icon__inner font-size-26">A</span>
-                  </span>
-                 <div class="media-body">
-                   <span class="text-dark">Anillo 3</span>
-                   <small class="d-block text-secondary">Alex Darlin Ocas Yzquierdo</small>
-                 </div>
-                 <div class="media-body text-right">
-                   <span class="text-primary ml-3">
-                    Diseño
-                   </span>
-                 </div>
-               </div>
-             </a>
-           </div>
-
-           <!-- End Card -->
-         </div>
-         <div class="card-deck d-block d-lg-flex">
-           <!-- Card -->
-           <div class="card u-info-v2 mb-3">
-             <a class="card-body p-4" href="#" style="text-decoration: none;">
-               <div class="media align-items-center">
-                 <span class="u-icon u-icon-success--air u-icon--lg rounded-circle mr-3">
-                          <span class="u-icon__inner font-size-26">S</span>
-                  </span>
-                 <div class="media-body">
-                   <span class="text-dark">Anillo</span>
-                   <small class="d-block text-secondary">Alex Darlin Ocas Yzquierdo</small>
-                 </div>
-                 <div class="media-body text-right">
-                   <span class="text-primary ml-3">
-                    Diseño
-                   </span>
-                 </div>
-               </div>
-             </a>
-           </div>
-           <!-- End Card -->
-
-           <!-- Card -->
-           <div class="card u-info-v2 mb-3">
-             <a class="card-body p-4" href="#" style="text-decoration: none;">
-               <div class="media align-items-center">
-                 <span class="u-icon u-icon-success--air u-icon--lg rounded-circle mr-3">
-                          <span class="u-icon__inner font-size-26">S</span>
-                  </span>
-                 <div class="media-body">
-                   <span class="text-dark">Anillo 4</span>
-                   <small class="d-block text-secondary">Alex Darlin Ocas Yzquierdo</small>
-                 </div>
-                 <div class="media-body text-right">
-                   <span class="text-primary ml-3">
-                    Diseño
-                   </span>
-                 </div>
-               </div>
-             </a>
-           </div>
-           <!-- End Card -->
-
-           <!-- Card -->
-           <div class="card u-info-v2 mb-3">
-             <a class="card-body p-4" href="#" style="text-decoration: none;">
-               <div class="media align-items-center">
-                 <span class="u-icon u-icon-success--air u-icon--lg rounded-circle mr-3">
-                          <span class="u-icon__inner font-size-26">S</span>
-                  </span>
-                 <div class="media-body">
-                   <span class="text-dark">Anillo 5</span>
-                   <small class="d-block text-secondary">Alex Darlin Ocas Yzquierdo</small>
-                 </div>
-                 <div class="media-body text-right">
-                   <span class="text-primary ml-3">
-                    Diseño
-                   </span>
-                 </div>
-               </div>
-             </a>
-           </div>
-
-           <!-- End Card -->
-         </div>
-
-
-       </div>
-       <!-- End Earning Sources -->
 
      </div>
    </div>
@@ -488,535 +136,538 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
    <!-- ========== SECONDARY CONTENTS ========== -->
 
   <!-- Request Payment Modal Window -->
-  <div id="requestPaymentModal" class="js-request-payment-window u-modal-window bg-transparent" style="width: 600px;">
-    <div class="bg-white rounded mb-9">
-      <!-- Header -->
-      <header class="d-flex justify-content-between align-items-center u-bg-light-blue-50 rounded-top py-3 px-5">
-        <h3 class="h6 mb-0">Nueva cotización</h3>
 
-        <button class="btn btn-xs u-btn--icon u-btn-text-secondary" type="button" onclick="Custombox.modal.close();">
-          <span class="fas fa-times"></span>
-        </button>
-      </header>
-      <!-- End Header -->
+	<div id="requestPaymentModal" class="js-request-payment-window u-modal-window bg-transparent" style="width: 600px;">
+	  <div class="bg-white rounded mb-9">
+	    <!-- Header -->
+	    <header class="d-flex justify-content-between align-items-center u-bg-light-blue-50 rounded-top py-3 px-5">
+	      <h3 class="h6 mb-0">Nueva cotización</h3>
 
-      <hr class="my-0">
+	      <button class="btn btn-xs u-btn--icon u-btn-text-secondary" type="button" onclick="Custombox.modal.close();">
+	        <span class="fas fa-times"></span>
+	      </button>
+	    </header>
+	    <!-- End Header -->
 
-      <!-- Request Payment Form -->
-      <form class="js-validate js-step-form"
-            data-progress-id="#progressStepForm"
-            data-steps-id="#contentStepForm"
-            novalidate="novalidate">
-        <!-- Progress Step Form -->
-        <div id="progressStepForm" class="js-step-progress row text-center u-form-steps p-5">
-          <div class="col-sm-4 mb-3 mb-sm-0">
-            <span class="d-block u-icon u-icon-primary--air u-icon--lg rounded-circle u-form-steps__icon mx-auto mb-2">
-              <span class="fa fa-user-circle u-icon__inner"></span>
-            </span>
-            Cliente
-          </div>
-          <div class="col-sm-4 mb-3 mb-sm-0">
-            <span class="d-block u-icon u-icon-primary--air u-icon--lg rounded-circle u-form-steps__icon mx-auto mb-2">
-              <span class="fa fa-file-invoice-dollar u-icon__inner"></span>
-            </span>
-            Productos
-          </div>
-          <div class="col-sm-4 mb-3 mb-sm-0">
-            <span class="d-block u-icon u-icon-primary--air u-icon--lg rounded-circle u-form-steps__icon mx-auto mb-2">
-              <span class="fa fa-paperclip u-icon__inner"></span>
-            </span>
-            Total
-          </div>
-        </div>
-        <!-- End Progress Step Form -->
+	    <hr class="my-0">
 
-        <hr class="my-0">
+	    <!-- Request Payment Form -->
+	    <form class="js-validate js-step-form"
+	          data-progress-id="#progressStepForm"
+	          data-steps-id="#contentStepForm"
+	          novalidate="novalidate">
+	      <!-- Progress Step Form -->
+	      <div id="progressStepForm" class="js-step-progress row text-center u-form-steps p-5">
+	        <div class="col-sm-4 mb-3 mb-sm-0">
+	          <span class="d-block u-icon u-icon-primary--air u-icon--lg rounded-circle u-form-steps__icon mx-auto mb-2">
+	            <span class="fa fa-user-circle u-icon__inner"></span>
+	          </span>
+	          Cliente
+	        </div>
+	        <div class="col-sm-4 mb-3 mb-sm-0">
+	          <span class="d-block u-icon u-icon-primary--air u-icon--lg rounded-circle u-form-steps__icon mx-auto mb-2">
+	            <span class="fa fa-file-invoice-dollar u-icon__inner"></span>
+	          </span>
+	          Productos
+	        </div>
+	        <div class="col-sm-4 mb-3 mb-sm-0">
+	          <span class="d-block u-icon u-icon-primary--air u-icon--lg rounded-circle u-form-steps__icon mx-auto mb-2">
+	            <span class="fa fa-paperclip u-icon__inner"></span>
+	          </span>
+	          Total
+	        </div>
+	      </div>
+	      <!-- End Progress Step Form -->
 
-        <!-- Content Step Form -->
-        <div id="contentStepForm" class="p-5 mb-5">
-          <div id="selectPlayerStep" class="active">
-            <!-- Recent Payers List -->
-            <div id="recentPayersList" data-target-group="idAddNewPayer">
-              <!-- Link -->
-              <div class="d-flex justify-content-end mb-3">
-                <a class="js-animation-link d-inline-block small u-link-muted" href="javascript:;"
-                   data-target="#addNewPayer"
-                   data-link-group="idAddNewPayer">
-                  <span class="fa fa-plus mr-1"></span>
-                  Agregar nuevo cliente
-                </a>
-              </div>
-              <!-- End Link -->
+	      <hr class="my-0">
 
-              <!-- Add Members -->
-              <div class="js-focus-state input-group u-form mb-4">
-                <input class="form-control u-form__input" type="email" placeholder="Buscar nombre" aria-label="Buscar nombre">
-              </div>
-              <!-- End Add Members -->
+	      <!-- Content Step Form -->
+	      <div id="contentStepForm" class="p-5 mb-5">
+	        <div id="selectPlayerStep" class="active">
+	          <!-- Recent Payers List -->
+	          <div id="recentPayersList" data-target-group="idAddNewPayer">
+	            <!-- Link -->
+	            <div class="d-flex justify-content-end mb-3">
+	              <a class="js-animation-link d-inline-block small u-link-muted" href="javascript:;"
+	                 data-target="#addNewPayer"
+	                 data-link-group="idAddNewPayer">
+	                <span class="fa fa-plus mr-1"></span>
+	                Agregar nuevo cliente
+	              </a>
+	            </div>
+	            <!-- End Link -->
 
-              <!-- Most Recent Payers List -->
-              <div class="mb-4">
-                <!-- Payers List -->
-                <a class="d-block d-sm-flex align-items-sm-center u-info-v2 rounded p-2 mb-2" style="text-decoration: none;" href="javascript:;" data-next-step="#paymentDetailsStep">
-                  <div class="media align-items-center">
-                    <span class="u-icon u-icon-success--air u-icon--lg rounded-circle mr-3">
-                          <span class="u-icon__inner font-size-26">S</span>
-                  </span>
-                    <div class="media-body">
-                      <h4 class="h6 mb-0">Sebastian Diaz</h4>
-                      <small class="d-block text-secondary">sebastiandiaz@gmail.com</small>
-                    </div>
-                  </div>
-                </a>
-                <!-- End Payers List -->
-                <!-- Payers List -->
-                <a class="d-block d-sm-flex align-items-sm-center u-info-v2 rounded p-2 mb-2" style="text-decoration: none;" href="javascript:;" data-next-step="#paymentDetailsStep">
-                  <div class="media align-items-center">
-                    <span class="u-icon u-icon-success--air u-icon--lg rounded-circle mr-3">
-                          <span class="u-icon__inner font-size-26">S</span>
-                  </span>
-                    <div class="media-body">
-                      <h4 class="h6 mb-0">Sebastian Diaz</h4>
-                      <small class="d-block text-secondary">sebastiandiaz@gmail.com</small>
-                    </div>
-                  </div>
-                </a>
-                <!-- End Payers List -->
-                <!-- Payers List -->
-                <a class="d-block d-sm-flex align-items-sm-center u-info-v2 rounded p-2 mb-2" style="text-decoration: none;" href="javascript:;" data-next-step="#paymentDetailsStep">
-                  <div class="media align-items-center">
-                    <span class="u-icon u-icon-success--air u-icon--lg rounded-circle mr-3">
-                          <span class="u-icon__inner font-size-26">S</span>
-                  </span>
-                    <div class="media-body">
-                      <h4 class="h6 mb-0">Sebastian Diaz</h4>
-                      <small class="d-block text-secondary">sebastiandiaz@gmail.com</small>
-                    </div>
-                  </div>
-                </a>
-                <!-- End Payers List -->
-                <!-- Payers List -->
-                <a class="d-block d-sm-flex align-items-sm-center u-info-v2 rounded p-2 mb-2" style="text-decoration: none;" href="javascript:;" data-next-step="#paymentDetailsStep">
-                  <div class="media align-items-center">
-                    <span class="u-icon u-icon-success--air u-icon--lg rounded-circle mr-3">
-                          <span class="u-icon__inner font-size-26">S</span>
-                  </span>
-                    <div class="media-body">
-                      <h4 class="h6 mb-0">Sebastian Diaz</h4>
-                      <small class="d-block text-secondary">sebastiandiaz@gmail.com</small>
-                    </div>
-                  </div>
-                </a>
-                <!-- End Payers List -->
-              </div>
-              <!-- End Most Recent Payers List -->
-            </div>
-            <!-- End Recent Payers List -->
+	            <!-- Add Members -->
+	            <div class="js-focus-state input-group u-form mb-4">
+	              <input class="form-control u-form__input" type="email" placeholder="Buscar nombre" aria-label="Buscar nombre">
+	            </div>
+	            <!-- End Add Members -->
 
-            <!-- Add New Payer -->
-            <div id="addNewPayer" data-target-group="idAddNewPayer" style="display: none;">
-              <!-- Button Group -->
-              <div class="btn-group btn-group-toggle d-flex mb-5">
-                <a class="js-animation-link btn btn-sm u-btn-secondary--air flex-fill active" href="javascript:;"
-                   data-target="#companyType"
-                   data-link-group="idPayerType">
-                  Company
-                </a>
-                <a class="js-animation-link btn btn-sm u-btn-secondary--air flex-fill" href="javascript:;"
-                   data-target="#individualType"
-                   data-link-group="idPayerType">
-                  Individual
-                </a>
-              </div>
-              <!-- End Button Group -->
+	            <!-- Most Recent Payers List -->
+	            <div class="mb-4">
+	              <!-- Payers List -->
+	              <a class="d-block d-sm-flex align-items-sm-center u-info-v2 rounded p-2 mb-2" style="text-decoration: none;" href="javascript:;" data-next-step="#paymentDetailsStep">
+	                <div class="media align-items-center">
+	                  <span class="u-icon u-icon-success--air u-icon--lg rounded-circle mr-3">
+	                        <span class="u-icon__inner font-size-26">S</span>
+	                </span>
+	                  <div class="media-body">
+	                    <h4 class="h6 mb-0">Sebastian Diaz</h4>
+	                    <small class="d-block text-secondary">sebastiandiaz@gmail.com</small>
+	                  </div>
+	                </div>
+	              </a>
+	              <!-- End Payers List -->
+	              <!-- Payers List -->
+	              <a class="d-block d-sm-flex align-items-sm-center u-info-v2 rounded p-2 mb-2" style="text-decoration: none;" href="javascript:;" data-next-step="#paymentDetailsStep">
+	                <div class="media align-items-center">
+	                  <span class="u-icon u-icon-success--air u-icon--lg rounded-circle mr-3">
+	                        <span class="u-icon__inner font-size-26">S</span>
+	                </span>
+	                  <div class="media-body">
+	                    <h4 class="h6 mb-0">Sebastian Diaz</h4>
+	                    <small class="d-block text-secondary">sebastiandiaz@gmail.com</small>
+	                  </div>
+	                </div>
+	              </a>
+	              <!-- End Payers List -->
+	              <!-- Payers List -->
+	              <a class="d-block d-sm-flex align-items-sm-center u-info-v2 rounded p-2 mb-2" style="text-decoration: none;" href="javascript:;" data-next-step="#paymentDetailsStep">
+	                <div class="media align-items-center">
+	                  <span class="u-icon u-icon-success--air u-icon--lg rounded-circle mr-3">
+	                        <span class="u-icon__inner font-size-26">S</span>
+	                </span>
+	                  <div class="media-body">
+	                    <h4 class="h6 mb-0">Sebastian Diaz</h4>
+	                    <small class="d-block text-secondary">sebastiandiaz@gmail.com</small>
+	                  </div>
+	                </div>
+	              </a>
+	              <!-- End Payers List -->
+	              <!-- Payers List -->
+	              <a class="d-block d-sm-flex align-items-sm-center u-info-v2 rounded p-2 mb-2" style="text-decoration: none;" href="javascript:;" data-next-step="#paymentDetailsStep">
+	                <div class="media align-items-center">
+	                  <span class="u-icon u-icon-success--air u-icon--lg rounded-circle mr-3">
+	                        <span class="u-icon__inner font-size-26">S</span>
+	                </span>
+	                  <div class="media-body">
+	                    <h4 class="h6 mb-0">Sebastian Diaz</h4>
+	                    <small class="d-block text-secondary">sebastiandiaz@gmail.com</small>
+	                  </div>
+	                </div>
+	              </a>
+	              <!-- End Payers List -->
+	            </div>
+	            <!-- End Most Recent Payers List -->
+	          </div>
+	          <!-- End Recent Payers List -->
 
-              <!-- Company Type Payer -->
-              <div id="companyType" data-target-group="idPayerType">
-                <div class="row">
-                  <!-- Input Group -->
-                  <div class="col-sm-6 mb-4">
-                    <label class="h6 small d-block text-uppercase">Company name</label>
-                    <div class="js-form-message">
-                      <div class="js-focus-state input-group input-group-sm u-form u-form--sm">
-                        <input class="form-control u-form__input" type="text" name="companyName" required
-                               placeholder="Pixeel"
-                               aria-label="Pixeel"
-                               data-msg="Please enter a valid name."
-                               data-error-class="u-has-error"
-                               data-success-class="u-has-success">
-                      </div>
-                    </div>
-                  </div>
-                  <!-- End Input Group -->
+	          <!-- Add New Payer -->
+	          <div id="addNewPayer" data-target-group="idAddNewPayer" style="display: none;">
+	            <!-- Button Group -->
+	            <div class="btn-group btn-group-toggle d-flex mb-5">
+	              <a class="js-animation-link btn btn-sm u-btn-secondary--air flex-fill active" href="javascript:;"
+	                 data-target="#companyType"
+	                 data-link-group="idPayerType">
+	                Company
+	              </a>
+	              <a class="js-animation-link btn btn-sm u-btn-secondary--air flex-fill" href="javascript:;"
+	                 data-target="#individualType"
+	                 data-link-group="idPayerType">
+	                Individual
+	              </a>
+	            </div>
+	            <!-- End Button Group -->
 
-                  <!-- Input Group -->
-                  <div class="col-sm-6 mb-4">
-                    <label class="h6 small d-block text-uppercase">Website URL</label>
-                    <div class="js-form-message">
-                      <div class="js-focus-state input-group input-group-sm u-form u-form--sm">
-                        <input class="form-control u-form__input" type="URL" name="websiteURL" required
-                               placeholder="example.com"
-                               aria-label="example.com"
-                               data-msg="Please enter a valid website URL."
-                               data-error-class="u-has-error"
-                               data-success-class="u-has-success">
-                      </div>
-                    </div>
-                  </div>
-                  <!-- End Input Group -->
+	            <!-- Company Type Payer -->
+	            <div id="companyType" data-target-group="idPayerType">
+	              <div class="row">
+	                <!-- Input Group -->
+	                <div class="col-sm-6 mb-4">
+	                  <label class="h6 small d-block text-uppercase">Company name</label>
+	                  <div class="js-form-message">
+	                    <div class="js-focus-state input-group input-group-sm u-form u-form--sm">
+	                      <input class="form-control u-form__input" type="text" name="companyName" required
+	                             placeholder="Pixeel"
+	                             aria-label="Pixeel"
+	                             data-msg="Please enter a valid name."
+	                             data-error-class="u-has-error"
+	                             data-success-class="u-has-success">
+	                    </div>
+	                  </div>
+	                </div>
+	                <!-- End Input Group -->
 
-                  <!-- Input Group -->
-                  <div class="col-sm-6 mb-4">
-                    <label class="h6 small d-block text-uppercase">Contact first name</label>
-                    <div class="js-form-message">
-                      <div class="js-focus-state input-group input-group-sm u-form u-form--sm">
-                        <input class="form-control u-form__input" type="text" name="contactFirstNameCompany" required
-                               placeholder="Brian"
-                               aria-label="Brian"
-                               data-msg="Please enter a valid name."
-                               data-error-class="u-has-error"
-                               data-success-class="u-has-success">
-                      </div>
-                    </div>
-                  </div>
-                  <!-- End Input Group -->
+	                <!-- Input Group -->
+	                <div class="col-sm-6 mb-4">
+	                  <label class="h6 small d-block text-uppercase">Website URL</label>
+	                  <div class="js-form-message">
+	                    <div class="js-focus-state input-group input-group-sm u-form u-form--sm">
+	                      <input class="form-control u-form__input" type="URL" name="websiteURL" required
+	                             placeholder="example.com"
+	                             aria-label="example.com"
+	                             data-msg="Please enter a valid website URL."
+	                             data-error-class="u-has-error"
+	                             data-success-class="u-has-success">
+	                    </div>
+	                  </div>
+	                </div>
+	                <!-- End Input Group -->
 
-                  <!-- Input Group -->
-                  <div class="col-sm-6 mb-4">
-                    <label class="h6 small d-block text-uppercase">Contact last name</label>
-                    <div class="js-form-message">
-                      <div class="js-focus-state input-group input-group-sm u-form u-form--sm">
-                        <input class="form-control u-form__input" type="text" name="contactLastNameCompany" required
-                               placeholder="Williams"
-                               aria-label="Williams"
-                               data-msg="Please enter a valid name."
-                               data-error-class="u-has-error"
-                               data-success-class="u-has-success">
-                      </div>
-                    </div>
-                  </div>
-                  <!-- End Input Group -->
+	                <!-- Input Group -->
+	                <div class="col-sm-6 mb-4">
+	                  <label class="h6 small d-block text-uppercase">Contact first name</label>
+	                  <div class="js-form-message">
+	                    <div class="js-focus-state input-group input-group-sm u-form u-form--sm">
+	                      <input class="form-control u-form__input" type="text" name="contactFirstNameCompany" required
+	                             placeholder="Brian"
+	                             aria-label="Brian"
+	                             data-msg="Please enter a valid name."
+	                             data-error-class="u-has-error"
+	                             data-success-class="u-has-success">
+	                    </div>
+	                  </div>
+	                </div>
+	                <!-- End Input Group -->
 
-                  <!-- Input Group -->
-                  <div class="col-sm-6 mb-4">
-                    <label class="h6 small d-block text-uppercase">Email</label>
-                    <div class="js-form-message">
-                      <div class="js-focus-state input-group input-group-sm u-form u-form--sm">
-                        <input class="form-control u-form__input" type="email" name="emailCompany" required
-                               placeholder="example@gmail.com"
-                               aria-label="example@gmail.com"
-                               data-msg="Please enter a valid email address."
-                               data-error-class="u-has-error"
-                               data-success-class="u-has-success">
-                      </div>
-                    </div>
-                  </div>
-                  <!-- End Input Group -->
+	                <!-- Input Group -->
+	                <div class="col-sm-6 mb-4">
+	                  <label class="h6 small d-block text-uppercase">Contact last name</label>
+	                  <div class="js-form-message">
+	                    <div class="js-focus-state input-group input-group-sm u-form u-form--sm">
+	                      <input class="form-control u-form__input" type="text" name="contactLastNameCompany" required
+	                             placeholder="Williams"
+	                             aria-label="Williams"
+	                             data-msg="Please enter a valid name."
+	                             data-error-class="u-has-error"
+	                             data-success-class="u-has-success">
+	                    </div>
+	                  </div>
+	                </div>
+	                <!-- End Input Group -->
 
-                  <!-- Input Group -->
-                  <div class="col-sm-6 mb-4">
-                    <label class="h6 small d-block text-uppercase">Country</label>
-                    <div class="js-form-message">
-                      <div class="js-focus-state input-group u-form">
-                        <select class="custom-select custom-select-sm">
-                          <option selected>Select country</option>
-                          <option value="AF">Afghanistan</option>
+	                <!-- Input Group -->
+	                <div class="col-sm-6 mb-4">
+	                  <label class="h6 small d-block text-uppercase">Email</label>
+	                  <div class="js-form-message">
+	                    <div class="js-focus-state input-group input-group-sm u-form u-form--sm">
+	                      <input class="form-control u-form__input" type="email" name="emailCompany" required
+	                             placeholder="example@gmail.com"
+	                             aria-label="example@gmail.com"
+	                             data-msg="Please enter a valid email address."
+	                             data-error-class="u-has-error"
+	                             data-success-class="u-has-success">
+	                    </div>
+	                  </div>
+	                </div>
+	                <!-- End Input Group -->
 
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- End Input Group -->
-                </div>
-              </div>
-              <!-- End Company Type Payer -->
+	                <!-- Input Group -->
+	                <div class="col-sm-6 mb-4">
+	                  <label class="h6 small d-block text-uppercase">Country</label>
+	                  <div class="js-form-message">
+	                    <div class="js-focus-state input-group u-form">
+	                      <select class="custom-select custom-select-sm">
+	                        <option selected>Select country</option>
+	                        <option value="AF">Afghanistan</option>
 
-              <!-- Individual Type Payer -->
-              <div id="individualType" data-target-group="idPayerType" style="display: none;">
-                <div class="row">
-                  <!-- Input Group -->
-                  <div class="col-sm-6 mb-4">
-                    <label class="h6 small d-block text-uppercase">Contact first name</label>
-                    <div class="js-form-message">
-                      <div class="js-focus-state input-group input-group-sm u-form u-form--sm">
-                        <input class="form-control u-form__input" type="text" name="contactFirstNameIndividual" required
-                               placeholder="Brian"
-                               aria-label="Brian"
-                               data-msg="Please enter a valid name."
-                               data-error-class="u-has-error"
-                               data-success-class="u-has-success">
-                      </div>
-                    </div>
-                  </div>
-                  <!-- End Input Group -->
+	                      </select>
+	                    </div>
+	                  </div>
+	                </div>
+	                <!-- End Input Group -->
+	              </div>
+	            </div>
+	            <!-- End Company Type Payer -->
 
-                  <!-- Input Group -->
-                  <div class="col-sm-6 mb-4">
-                    <label class="h6 small d-block text-uppercase">Contact last name</label>
-                    <div class="js-form-message">
-                      <div class="js-focus-state input-group input-group-sm u-form u-form--sm">
-                        <input class="form-control u-form__input" type="text" name="contactLasttNameIndividual" required
-                               placeholder="Williams"
-                               aria-label="Williams"
-                               data-msg="Please enter a valid name."
-                               data-error-class="u-has-error"
-                               data-success-class="u-has-success">
-                      </div>
-                    </div>
-                  </div>
-                  <!-- End Input Group -->
+	            <!-- Individual Type Payer -->
+	            <div id="individualType" data-target-group="idPayerType" style="display: none;">
+	              <div class="row">
+	                <!-- Input Group -->
+	                <div class="col-sm-6 mb-4">
+	                  <label class="h6 small d-block text-uppercase">Contact first name</label>
+	                  <div class="js-form-message">
+	                    <div class="js-focus-state input-group input-group-sm u-form u-form--sm">
+	                      <input class="form-control u-form__input" type="text" name="contactFirstNameIndividual" required
+	                             placeholder="Brian"
+	                             aria-label="Brian"
+	                             data-msg="Please enter a valid name."
+	                             data-error-class="u-has-error"
+	                             data-success-class="u-has-success">
+	                    </div>
+	                  </div>
+	                </div>
+	                <!-- End Input Group -->
 
-                  <!-- Input Group -->
-                  <div class="col-sm-6 mb-4">
-                    <label class="h6 small d-block text-uppercase">Email</label>
-                    <div class="js-form-message">
-                      <div class="js-focus-state input-group input-group-sm u-form u-form--sm">
-                        <input class="form-control u-form__input" type="email" name="emailIndividual" required
-                               placeholder="example@gmail.com"
-                               aria-label="example@gmail.com"
-                               data-msg="Please enter a valid email address."
-                               data-error-class="u-has-error"
-                               data-success-class="u-has-success">
-                      </div>
-                    </div>
-                  </div>
-                  <!-- End Input Group -->
+	                <!-- Input Group -->
+	                <div class="col-sm-6 mb-4">
+	                  <label class="h6 small d-block text-uppercase">Contact last name</label>
+	                  <div class="js-form-message">
+	                    <div class="js-focus-state input-group input-group-sm u-form u-form--sm">
+	                      <input class="form-control u-form__input" type="text" name="contactLasttNameIndividual" required
+	                             placeholder="Williams"
+	                             aria-label="Williams"
+	                             data-msg="Please enter a valid name."
+	                             data-error-class="u-has-error"
+	                             data-success-class="u-has-success">
+	                    </div>
+	                  </div>
+	                </div>
+	                <!-- End Input Group -->
 
-                  <!-- Input Group -->
-                  <div class="col-sm-6 mb-4">
-                    <label class="h6 small d-block text-uppercase">Country</label>
-                    <div class="js-form-message">
-                      <div class="js-focus-state input-group u-form">
-                        <select class="custom-select custom-select-sm">
-                          <option selected>Select country</option>
-                          <option value="AF">Afghanistan</option>
-                          <option value="AX">Åland Islands</option>
+	                <!-- Input Group -->
+	                <div class="col-sm-6 mb-4">
+	                  <label class="h6 small d-block text-uppercase">Email</label>
+	                  <div class="js-form-message">
+	                    <div class="js-focus-state input-group input-group-sm u-form u-form--sm">
+	                      <input class="form-control u-form__input" type="email" name="emailIndividual" required
+	                             placeholder="example@gmail.com"
+	                             aria-label="example@gmail.com"
+	                             data-msg="Please enter a valid email address."
+	                             data-error-class="u-has-error"
+	                             data-success-class="u-has-success">
+	                    </div>
+	                  </div>
+	                </div>
+	                <!-- End Input Group -->
 
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- End Input Group -->
-                </div>
-              </div>
-              <!-- End Individual Type Payer -->
-            </div>
-            <!-- End Add New Payer -->
+	                <!-- Input Group -->
+	                <div class="col-sm-6 mb-4">
+	                  <label class="h6 small d-block text-uppercase">Country</label>
+	                  <div class="js-form-message">
+	                    <div class="js-focus-state input-group u-form">
+	                      <select class="custom-select custom-select-sm">
+	                        <option selected>Select country</option>
+	                        <option value="AF">Afghanistan</option>
+	                        <option value="AX">Åland Islands</option>
 
-            <!-- Buttons -->
-            <div class="d-flex justify-content-end">
-              <button type="button" class="btn btn-sm btn-primary u-btn-primary transition-3d-hover mr-1" data-next-step="#paymentDetailsStep">Siguiente</button>
-              <button type="submit" class="btn btn-sm u-btn-secondary--air transition-3d-hover" onclick="Custombox.modal.close();">Cancelar oninvalid=""</button>
-            </div>
-            <!-- End Buttons -->
-          </div>
+	                      </select>
+	                    </div>
+	                  </div>
+	                </div>
+	                <!-- End Input Group -->
+	              </div>
+	            </div>
+	            <!-- End Individual Type Payer -->
+	          </div>
+	          <!-- End Add New Payer -->
 
-          <div id="paymentDetailsStep" style="display: none;">
-            <div class="row">
-              <!-- Input Group -->
-              <div class="col-sm-4 mb-4">
-                <label class="h6 small d-block text-uppercase">Id del producto</label>
-                <div class="js-form-message">
-                  <div class="js-focus-state input-group input-group-sm u-form u-form--sm">
-                    <input class="form-control u-form__input" type="text" name="id_producto" required
-                           placeholder="1"
-                           aria-label="1"
-                           data-msg=""
-                           data-error-class="u-has-error"
-                           data-success-class="u-has-success">
-                  </div>
-                </div>
-              </div>
-              <!-- End Input Group -->
+	          <!-- Buttons -->
+	          <div class="d-flex justify-content-end">
+	            <button type="button" class="btn btn-sm btn-primary u-btn-primary transition-3d-hover mr-1" data-next-step="#paymentDetailsStep">Siguiente</button>
+	            <button type="submit" class="btn btn-sm u-btn-secondary--air transition-3d-hover" onclick="Custombox.modal.close();">Cancelar oninvalid=""</button>
+	          </div>
+	          <!-- End Buttons -->
+	        </div>
 
-              <!-- Select -->
-              <div class="col-sm-4 mb-4">
-                <label class="h6 small d-block text-uppercase">Nombre</label>
-                <div class="js-form-message">
-                  <div class="js-focus-state input-group input-group-sm u-form u-form--sm">
-                    <input class="form-control u-form__input" type="text" name="id_producto" required
-                           placeholder=""
-                           aria-label=""
-                           data-msg=""
-                           data-error-class="u-has-error"
-                           data-success-class="u-has-success">
-                  </div>
-                </div>
-              </div>
-              <!-- End Select -->
-              <!-- Select -->
-              <div class="col-sm-4 mb-4">
-                <label class="h6 small d-block text-uppercase">Precio</label>
-                <div class="js-form-message">
-                  <div class="js-focus-state input-group input-group-sm u-form u-form--sm">
-                    <input class="form-control u-form__input" type="text" name="id_producto" required
-                           placeholder=""
-                           aria-label=""
-                           data-msg=""
-                           data-error-class="u-has-error"
-                           data-success-class="u-has-success">
-                  </div>
-                </div>
-              </div>
-              <!-- End Select -->
-            </div>
-            <div class="row">
-              <!-- Input Group -->
-              <div class="col-sm-4 mb-4">
-                <label class="h6 small d-block text-uppercase">U.Medida</label>
-                <div class="js-form-message">
-                  <div class="js-focus-state input-group input-group-sm u-form u-form--sm">
-                    <input class="form-control u-form__input" type="text" name="id_producto" required
-                           placeholder=""
-                           aria-label=""
-                           data-msg=""
-                           data-error-class="u-has-error"
-                           data-success-class="u-has-success">
-                  </div>
-                </div>
-              </div>
-              <!-- End Input Group -->
+	        <div id="paymentDetailsStep" style="display: none;">
+	          <div class="row">
+	            <!-- Input Group -->
+	            <div class="col-sm-4 mb-4">
+	              <label class="h6 small d-block text-uppercase">Id del producto</label>
+	              <div class="js-form-message">
+	                <div class="js-focus-state input-group input-group-sm u-form u-form--sm">
+	                  <input class="form-control u-form__input" type="text" name="id_producto" required
+	                         placeholder="1"
+	                         aria-label="1"
+	                         data-msg=""
+	                         data-error-class="u-has-error"
+	                         data-success-class="u-has-success">
+	                </div>
+	              </div>
+	            </div>
+	            <!-- End Input Group -->
 
-              <!-- Select -->
-              <div class="col-sm-4 mb-4">
-                <label class="h6 small d-block text-uppercase">Cantidad</label>
-                <div class="js-form-message">
-                  <div class="js-focus-state input-group input-group-sm u-form u-form--sm">
-                    <input class="form-control u-form__input" type="text" name="id_producto" required
-                           placeholder=""
-                           aria-label=""
-                           data-msg=""
-                           data-error-class="u-has-error"
-                           data-success-class="u-has-success">
-                  </div>
-                </div>
-              </div>
-              <!-- End Select -->
-              <!-- Select -->
-              <div class="col-sm-4 mb-4">
-                <label class="h6 small d-block text-uppercase">Sub total</label>
-                <div class="js-form-message">
-                  <div class="js-focus-state input-group input-group-sm u-form u-form--sm">
-                    <input class="form-control u-form__input" type="text" name="id_producto" required
-                           placeholder=""
-                           aria-label=""
-                           data-msg=""
-                           data-error-class="u-has-error"
-                           data-success-class="u-has-success">
-                  </div>
-                </div>
-              </div>
-              <!-- End Select -->
-            </div>
+	            <!-- Select -->
+	            <div class="col-sm-4 mb-4">
+	              <label class="h6 small d-block text-uppercase">Nombre</label>
+	              <div class="js-form-message">
+	                <div class="js-focus-state input-group input-group-sm u-form u-form--sm">
+	                  <input class="form-control u-form__input" type="text" name="id_producto" required
+	                         placeholder=""
+	                         aria-label=""
+	                         data-msg=""
+	                         data-error-class="u-has-error"
+	                         data-success-class="u-has-success">
+	                </div>
+	              </div>
+	            </div>
+	            <!-- End Select -->
+	            <!-- Select -->
+	            <div class="col-sm-4 mb-4">
+	              <label class="h6 small d-block text-uppercase">Precio</label>
+	              <div class="js-form-message">
+	                <div class="js-focus-state input-group input-group-sm u-form u-form--sm">
+	                  <input class="form-control u-form__input" type="text" name="id_producto" required
+	                         placeholder=""
+	                         aria-label=""
+	                         data-msg=""
+	                         data-error-class="u-has-error"
+	                         data-success-class="u-has-success">
+	                </div>
+	              </div>
+	            </div>
+	            <!-- End Select -->
+	          </div>
+	          <div class="row">
+	            <!-- Input Group -->
+	            <div class="col-sm-4 mb-4">
+	              <label class="h6 small d-block text-uppercase">U.Medida</label>
+	              <div class="js-form-message">
+	                <div class="js-focus-state input-group input-group-sm u-form u-form--sm">
+	                  <input class="form-control u-form__input" type="text" name="id_producto" required
+	                         placeholder=""
+	                         aria-label=""
+	                         data-msg=""
+	                         data-error-class="u-has-error"
+	                         data-success-class="u-has-success">
+	                </div>
+	              </div>
+	            </div>
+	            <!-- End Input Group -->
 
-            <!-- Input -->
-            <div class="mb-4">
-              <label class="h6 small d-block text-uppercase">Descripción</label>
-              <div class="js-form-message">
-                <div class="js-focus-state input-group input-group-sm u-form--sm">
-                  <textarea class="form-control u-form__input" rows="2" name="description" required
-                            placeholder=""
-                            aria-label=""
-                            data-msg="Coloca una decripción."
-                            data-error-class="u-has-error"
-                            data-success-class="u-has-success"></textarea>
-                </div>
-              </div>
-            </div>
-            <!-- End Input -->
-            <div class="row">
-              <!-- Input Group -->
-              <div class="col-sm-4 mb-4">
-                <label class="h6 small d-block text-uppercase">Fecha de salida</label>
-                <div id="datepickerWrapper" class="u-datepicker u-datepicker--top input-group input-group-sm u-form u-form--sm">
-                  <input class="js-range-datepicker form-control u-form__input bg-transparent border-right-0" type="text" placeholder="F.salida" aria-label="Fecha de salida"
-                         data-rp-wrapper="#datepickerWrapper"
-                         data-rp-date-format="d/m/Y">
-                  <div class="input-group-append u-form__append">
-                    <span class="input-group-text u-form__text rounded-right">
-                      <span class="far fa-calendar-alt u-form__text-inner"></span>
-                    </span>
-                  </div>
-                </div>
-              </div>
-              <!-- End Input Group -->
+	            <!-- Select -->
+	            <div class="col-sm-4 mb-4">
+	              <label class="h6 small d-block text-uppercase">Cantidad</label>
+	              <div class="js-form-message">
+	                <div class="js-focus-state input-group input-group-sm u-form u-form--sm">
+	                  <input class="form-control u-form__input" type="text" name="id_producto" required
+	                         placeholder=""
+	                         aria-label=""
+	                         data-msg=""
+	                         data-error-class="u-has-error"
+	                         data-success-class="u-has-success">
+	                </div>
+	              </div>
+	            </div>
+	            <!-- End Select -->
+	            <!-- Select -->
+	            <div class="col-sm-4 mb-4">
+	              <label class="h6 small d-block text-uppercase">Sub total</label>
+	              <div class="js-form-message">
+	                <div class="js-focus-state input-group input-group-sm u-form u-form--sm">
+	                  <input class="form-control u-form__input" type="text" name="id_producto" required
+	                         placeholder=""
+	                         aria-label=""
+	                         data-msg=""
+	                         data-error-class="u-has-error"
+	                         data-success-class="u-has-success">
+	                </div>
+	              </div>
+	            </div>
+	            <!-- End Select -->
+	          </div>
 
-              <!-- Select -->
-              <div class="col-sm-4 mb-4">
-                <label class="h6 small d-block text-uppercase">Area</label>
-                <div class="js-form-message">
-                  <div class="js-focus-state input-group input-group-sm u-form u-form--sm">
-                    <select class="form-control u-form__input" name="">
-                      <option value="2">Diseño</option>
-                      <option value="3">Mesa</option>
-                      <option value="4">Casting</option>
-                    </select>
+	          <!-- Input -->
+	          <div class="mb-4">
+	            <label class="h6 small d-block text-uppercase">Descripción</label>
+	            <div class="js-form-message">
+	              <div class="js-focus-state input-group input-group-sm u-form--sm">
+	                <textarea class="form-control u-form__input" rows="2" name="description" required
+	                          placeholder=""
+	                          aria-label=""
+	                          data-msg="Coloca una decripción."
+	                          data-error-class="u-has-error"
+	                          data-success-class="u-has-success"></textarea>
+	              </div>
+	            </div>
+	          </div>
+	          <!-- End Input -->
+	          <div class="row">
+	            <!-- Input Group -->
+	            <div class="col-sm-4 mb-4">
+	              <label class="h6 small d-block text-uppercase">Fecha de salida</label>
+	              <div id="datepickerWrapper" class="u-datepicker u-datepicker--top input-group input-group-sm u-form u-form--sm">
+	                <input class="js-range-datepicker form-control u-form__input bg-transparent border-right-0" type="text" placeholder="F.salida" aria-label="Fecha de salida"
+	                       data-rp-wrapper="#datepickerWrapper"
+	                       data-rp-date-format="d/m/Y">
+	                <div class="input-group-append u-form__append">
+	                  <span class="input-group-text u-form__text rounded-right">
+	                    <span class="far fa-calendar-alt u-form__text-inner"></span>
+	                  </span>
+	                </div>
+	              </div>
+	            </div>
+	            <!-- End Input Group -->
 
-                  </div>
-                </div>
-              </div>
-              <!-- End Select -->
-              <!-- Select -->
-              <div class="col-sm-4 mb-4">
-                <label class="h6 small d-block text-uppercase">Procesos</label>
-                <div class="js-form-message">
-                  <div class="js-focus-state input-group input-group-sm u-form u-form--sm">
-                    <select class="form-control u-form__input" name="">
-                      <option value="1">1</option>
-                      <option value="2">2</option>
-                      <option value="3">3</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-              <!-- End Select -->
-            </div>
-            <!-- Datepicker -->
-            <div class="mb-4">
-              <label class="d-block small text-uppercase font-weight-medium">Imagen</label>
-              <div class="js-form-message">
-                <div class="js-focus-state input-group input-group-sm u-form u-form--sm">
-                  <input class="form-control u-form__input" type="text" name="id_producto" required
-                         placeholder=""
-                         aria-label=""
-                         data-msg=""
-                         data-error-class="u-has-error"
-                         data-success-class="u-has-success">
-                </div>
-              </div>
-            </div>
-            <!-- End Datepicker -->
+	            <!-- Select -->
+	            <div class="col-sm-4 mb-4">
+	              <label class="h6 small d-block text-uppercase">Area</label>
+	              <div class="js-form-message">
+	                <div class="js-focus-state input-group input-group-sm u-form u-form--sm">
+	                  <select class="form-control u-form__input" name="">
+	                    <option value="2">Diseño</option>
+	                    <option value="3">Mesa</option>
+	                    <option value="4">Casting</option>
+	                  </select>
 
-            <!-- Buttons -->
-            <div class="d-flex justify-content-end">
-              <button type="button" class="btn btn-sm btn-primary u-btn-primary transition-3d-hover mr-1" data-next-step="#attachDocumentsStep">Siguiente</button>
-              <a class="btn btn-sm u-btn-secondary--air transition-3d-hover mr-1" href="javascript:;" data-previous-step="#selectPlayerStep">Atrás</a>
-            </div>
-            <!-- End Buttons -->
-          </div>
+	                </div>
+	              </div>
+	            </div>
+	            <!-- End Select -->
+	            <!-- Select -->
+	            <div class="col-sm-4 mb-4">
+	              <label class="h6 small d-block text-uppercase">Procesos</label>
+	              <div class="js-form-message">
+	                <div class="js-focus-state input-group input-group-sm u-form u-form--sm">
+	                  <select class="form-control u-form__input" name="">
+	                    <option value="1">1</option>
+	                    <option value="2">2</option>
+	                    <option value="3">3</option>
+	                  </select>
+	                </div>
+	              </div>
+	            </div>
+	            <!-- End Select -->
+	          </div>
+	          <!-- Datepicker -->
+	          <div class="mb-4">
+	            <label class="d-block small text-uppercase font-weight-medium">Imagen</label>
+	            <div class="js-form-message">
+	              <div class="js-focus-state input-group input-group-sm u-form u-form--sm">
+	                <input class="form-control u-form__input" type="text" name="id_producto" required
+	                       placeholder=""
+	                       aria-label=""
+	                       data-msg=""
+	                       data-error-class="u-has-error"
+	                       data-success-class="u-has-success">
+	              </div>
+	            </div>
+	          </div>
+	          <!-- End Datepicker -->
 
-          <div id="attachDocumentsStep" style="display: none;">
-            <div class="mb-4">
-							  <p>Sub Total: </p>
-								<p>IGV(): </p>
-              	<p>TOTAL: </p>
-            </div>
+	          <!-- Buttons -->
+	          <div class="d-flex justify-content-end">
+	            <button type="button" class="btn btn-sm btn-primary u-btn-primary transition-3d-hover mr-1" data-next-step="#attachDocumentsStep">Siguiente</button>
+	            <a class="btn btn-sm u-btn-secondary--air transition-3d-hover mr-1" href="javascript:;" data-previous-step="#selectPlayerStep">Atrás</a>
+	          </div>
+	          <!-- End Buttons -->
+	        </div>
+
+	        <div id="attachDocumentsStep" style="display: none;">
+	          <div class="mb-4">
+	              <p>Sub Total: </p>
+	              <p>IGV(): </p>
+	              <p>TOTAL: </p>
+	          </div>
 
 
 
-            <!-- Buttons -->
-            <div class="d-flex justify-content-end">
-              <button type="submit" class="btn btn-sm btn-primary u-btn-primary transition-3d-hover mr-1">Guardar</button>
-              <a class="btn btn-sm u-btn-secondary--air transition-3d-hover mr-1" href="javascript:;" data-previous-step="#paymentDetailsStep">Atrás</a>
-            </div>
-            <!-- End Buttons -->
-          </div>
-        </div>
-        <!-- End Content Step Form -->
-      </form>
-      <!-- End Request Payment Form -->
-    </div>
-  </div>
+	          <!-- Buttons -->
+	          <div class="d-flex justify-content-end">
+	            <button type="submit" class="btn btn-sm btn-primary u-btn-primary transition-3d-hover mr-1">Guardar</button>
+	            <a class="btn btn-sm u-btn-secondary--air transition-3d-hover mr-1" href="javascript:;" data-previous-step="#paymentDetailsStep">Atrás</a>
+	          </div>
+	          <!-- End Buttons -->
+	        </div>
+	      </div>
+	      <!-- End Content Step Form -->
+	    </form>
+	    <!-- End Request Payment Form -->
+	  </div>
+
+	</div>
+
   <!-- End Request Payment Modal Window -->
   <!-- ========== END SECONDARY CONTENTS ========== -->
 
@@ -1039,9 +690,11 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
       <script src="js/jquery-migrate.min.js"></script>
       <script src="js/popper.min.js"></script>
       <script src="js/bootstrap.min.js"></script>
+			<script src="js/jquery.exitintent.min.js"></script>
 
       <!-- JS Implementing Plugins -->
       <script src="js/hs.megamenu.js"></script>
+			<script src="js/jquery.dataTables.min.js"></script>
       <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
       <script src="js/jquery.validate.min.js"></script>
       <script src="js/custombox.min.js"></script>
@@ -1053,6 +706,7 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
       <script src="js/hs.core.js"></script>
       <script src="js/hs.header.js"></script>
       <script src="js/hs.unfold.js"></script>
+			<script src="js/hs.datatables.js"></script>
       <script src="js/hs.malihu-scrollbar.js"></script>
       <script src="js/hs.focus-state.js"></script>
       <script src="js/hs.validation.js"></script>
@@ -1135,5 +789,12 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
       $.HSCore.components.HSGoTo.init('.js-go-to');
     });
   </script>
+	<!-- JS Plugins Init. -->
+<script>
+  $(document).on('ready', function () {
+    // initialization of datatables
+    $.HSCore.components.HSDatatables.init('.js-datatable');
+  });
+</script>
   </body>
 </html>
